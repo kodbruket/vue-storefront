@@ -59,8 +59,9 @@ export function prepareStoreView (storeCode: string) : StoreView {
   const storeViewHasChanged = !rootStore.state.storeView || rootStore.state.storeView.storeCode !== storeCode
   if (storeCode) { // current store code
     if ((storeView = config.storeViews[storeCode])) {
-      storeView.storeCode = storeCode
-      rootStore.state.user.current_storecode = storeCode
+      const configuredStoreCode = config.storeViews[storeCode].storeCode || storeCode
+      storeView.storeCode = configuredStoreCode
+      rootStore.state.user.current_storecode = configuredStoreCode
     }
   } else {
     storeView.storeCode = config.defaultStoreCode || ''
